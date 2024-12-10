@@ -1,46 +1,46 @@
 package agenda;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Repetition {
-    public ChronoUnit getFrequency() {
-        return myFrequency;
+/**
+ * A repetitive Event
+ */
+public class Repetition extends Event {
+    private ChronoUnit frequency;
+    private ArrayList<LocalDate> exceptions = new ArrayList<LocalDate>();
+
+    public Repetition(String title, LocalDateTime start, Duration duration, ChronoUnit frequency) {
+        super(title, start, duration);
+        this.frequency = frequency;
     }
 
-    /**
-     * Stores the frequency of this repetition, one of :
-     * <UL>
-     * <LI>ChronoUnit.DAYS for daily repetitions</LI>
-     * <LI>ChronoUnit.WEEKS for weekly repetitions</LI>
-     * <LI>ChronoUnit.MONTHS for monthly repetitions</LI>
-     * </UL>
-     */
-    private final ChronoUnit myFrequency;
-
-    public Repetition(ChronoUnit myFrequency) {
-        this.myFrequency = myFrequency;
+    @Override
+    public boolean isInDay(LocalDate aDay) {
+        if (exceptions.contains(aDay))
+            return false;
+        LocalDate dateTest = LocalDate.from(getStart());
+        while (dateTest.isBefore(aDay) || dateTest.equals(aDay)) {
+            if (dateTest.plus(1, frequency).equals(aDay)) {
+                return true;
+            }
+            dateTest = dateTest.plus(1, frequency);
+        }
+        return super.isInDay(aDay);
     }
 
-    /**
-     * Les exceptions à la répétition
-     * @param date un date à laquelle l'événement ne doit pas se répéter
-     */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        exceptions.add(date);
     }
 
-    /**
-     * La terminaison d'une répétition (optionnelle)
-     * @param termination la terminaison de la répétition
-     */
-    public void setTermination(Termination termination) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+    public ChronoUnit getFrequency() {
+        return frequency;
+    }
 
+    public void setRepetition(ChronoUnit frequency) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

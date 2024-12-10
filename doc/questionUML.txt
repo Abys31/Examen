@@ -1,2 +1,12 @@
 Ecrire ici votre réponse à la question UML.
+Le diagramme UML initial présente une hiérarchie claire entre `Event`, `RepetitiveEvent`, et `FixedTerminationEvent`, facilitant l’intégration logique des classes.
+ La gestion des répétitions utilise `ChronoUnit` pour définir clairement la fréquence avec des unités temporelles (jours, semaines, mois), rendant la gestion des répétitions plus accessible.
+ L’ajout des exceptions est facilité grâce à la méthode `addException(date)`, simplifiant le traitement des cas particuliers. La modularité est maintenue par une séparation nette entre `Event` et ses sous-classes (`RepetitiveEvent`, `FixedTerminationEvent`), permettant une extension future du modèle sans impact majeur sur les autres classes.
+ L’inconvénient réside dans la complexité accrue due à l’intégration de `ChronoUnit`, et la redondance entre certaines méthodes (`getNumberOfOccurrences()`, `getTerminationDate()`) entre `FixedTerminationEvent` et `RepetitiveEvent`.
 
+Le diagramme UML fourni simplifie l’interface utilisateur en gérant directement les répétitions par `RepetitiveEvent` avec `ChronoUnit`, rendant la définition de la fréquence d’un événement plus intuitive pour l’utilisateur final.
+La gestion directe des exceptions permet une personnalisation aisée des événements selon les besoins spécifiques, en isolant les exceptions dans la classe `Event`. Cependant, cet abord direct entre `Event` et `RepetitiveEvent` réduit la modularité par rapport au diagramme initial.
+Cela peut compliquer la maintenance du code à long terme, surtout si l’application évolue ou si de nouvelles unités temporelles sont ajoutées. Cela peut rendre plus difficile l’extension du modèle sans perturber les relations existantes.
+
+En conclusion, le diagramme UML initial est plus robuste pour une gestion future de l’événement avec des répétitions complexes et des extensions, offrant une meilleure modularité.
+Il permet l’ajout de nouvelles fonctionnalités sans modifier les classes existantes. Le diagramme UML dans l’image est plus intuitif pour les utilisateurs finaux, mais peut être plus difficile à maintenir à long terme en raison de la relation directe entre les classes, ce qui peut s’adapter mieux à des scénarios où la simplicité et la rapidité de mise en œuvre sont prioritaires.

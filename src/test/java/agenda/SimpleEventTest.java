@@ -28,7 +28,7 @@ public class SimpleEventTest {
     // Un événement simple
     // November 1st, 2020, 22:30, 89 minutes
     Event simple = new Event("Simple event", nov_1_2020_22_30, min_89);
-    
+
     // Un événement qui chevauche 2 jours
     // November 1st, 2020, 22:30, 120 minutes
     Event overlapping = new Event("Overlapping event", nov_1_2020_22_30, min_120);
@@ -53,7 +53,7 @@ public class SimpleEventTest {
     @Test
     public void toStringShowsEventTitle() {
         assertTrue(simple.toString().contains("Simple event"),
-            "toString() doit montrer le titre de l'événement");
+                "toString() doit montrer le titre de l'événement");
     }
-    
+
 }
